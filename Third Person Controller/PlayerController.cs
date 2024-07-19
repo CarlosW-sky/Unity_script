@@ -1,6 +1,4 @@
-﻿/*using System.Collections;
-using System.Collections.Generic; */
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public class PlayerController : MonoBehaviour
@@ -15,7 +13,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        cameraController = Camera.main.GetComponent<CameraController>(); // 获取主相机的 Transform 组件
+        // 获取主相机的 Transform 组件
+        cameraController = Camera.main.GetComponent<CameraController>();
     }
     private void Update()
     {

@@ -1,8 +1,4 @@
-﻿/*using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration; */
-using UnityEngine;
+﻿using UnityEngine;
 using System.Media; // Media; 使用 不安全代码
 
 
