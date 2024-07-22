@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using OpenCover.Framework.Model;
+using UnityEngine;
 
-
-
+//cameraOffset相偏移, walk步行, 启动时调用的方法Method called at startup, processing处理
+//
 [RequireComponent(typeof(UnityEngine.CharacterController))]
-
 public class PlayerManager : MonoBehaviour
 {   
-    // 玩家相机 和 步行；
+    //player walk 
     public Camera playerCamera;
     public float walkSpeed = 6f;
     public float runSpeed = 12f; 
@@ -14,64 +14,59 @@ public class PlayerManager : MonoBehaviour
     public float gravity = 10f;
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
-    // 行走声音v 跳跃声音
+    //Walk,jump Audio
     public AudioClip walkSound; 
     public AudioClip jumpSound;
-    // 缩放速度 最小视野范围 最大视野范围 第一人称视野 第三人称视野
+    //Zoom Camera
     public float zoomSpeed = 2f;
     public float minZoom = 20f;
     public float maxZoom = 60f; 
     public float firstPersonFOV = 60f;
     public float thirdPersonFOV = 90f;
-    // 音频源 移动方向 视角旋转X轴角度 相机偏移
+    //Audio source Movement direction View rotation X-axis angle Camera offset
     private AudioSource audioSource; 
     private Vector3 moveDirection = Vector3.zero; 
     private float rotationX = 0; 
     private Vector3 cameraOffset;
 
-    public bool canMove = true; // 是否可以移动
-    private UnityEngine.CharacterController characterController; // 角色控制器
-    // 启动时调用的方法
+    public bool canMove = true; // Can it be moved
+    private UnityEngine.CharacterController characterController; // Character Controller
+    //Method called at startup
     void Start()
-    {   // MY WORLD 1
-        characterController = GetComponent<UnityEngine.CharacterController>(); // 获取角色控制器组件
-        audioSource = gameObject.AddComponent<AudioSource>(); // 添加音频源组件
-        Cursor.lockState = CursorLockMode.Locked; // 锁定鼠标
-        Cursor.visible = false; // 隐藏鼠标光标
-        cameraOffset = playerCamera.transform.position - transform.position; // 计算相机偏移
+    {   
+        //Get character controller component and add Audio Component 
+        characterController = GetComponent<UnityEngine.CharacterController>(); 
+        audioSource = gameObject.AddComponent<AudioSource>();
+        //Lock mouse, visible cursor, Calculating camera offset 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cameraOffset = playerCamera.transform.position - transform.position;
 
-        //  MY WORLD 2
-        // 输出 "Hello, World!" 到控制台
         Debug.Log("Player1 Success");
-        Debug.Log(" 中文简体:》》 玩家1 成功加载");
-        /*
-        Console.WriteLine("hello");
-        Console.WriteLine("helloworld");
-        Console.Error.WriteLine("hello");
-        Console.Error.WriteLine("hellowrld");   */
-        //输入-输出，脚本 Player2;      
+        Debug.Log("玩家1 成功加载"); 
     }   
 
-    void Update() // 每帧调用一次的方法
+    void Update()
     {
-        HandleMovement(); // 调用处理移动方法
-        HandleJumping(); // 调用处理跳跃方法
-        HandleRotation(); // 调用处理旋转方法
-        HandleZoom(); // 调用处理缩放方法
+        //processing ( )method
+        HandleMovement(); 
+        HandleJumping(); 
+        HandleRotation();
+        HandleZoom(); 
     }
-    // 处理角色移动
     private void HandleMovement()
     {
-        Vector3 forward = playerCamera.transform.TransformDirection(Vector3.forward); // 前方向（相机）
-        Vector3 right = playerCamera.transform.TransformDirection(Vector3.right); // 右方向（相机）
-
-        forward.y = 0; // 保持在水平面上
-        right.y = 0; // 保持在水平面上
-          //接触地面
+        //forward direction and Right direction ( Camera )
+        Vector3 forward = playerCamera.transform.TransformDirection(Vector3.forward); 
+        Vector3 right = playerCamera.transform.TransformDirection(Vector3.right);
+        //Keep on level surface保持水平面上
+        forward.y = 0;
+        right.y = 0;
+        //Contact the ground
         forward.Normalize();
         right.Normalize();
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift); // 检测跑步
+        bool isRunning = Input.GetKey(KeyCode.LeftShift); //Detect running
         float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0; // 当前X轴速度
         float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0; // 当前Y轴速度
         float movementDirectionY = moveDirection.y; // 移动方向Y轴
@@ -151,8 +146,4 @@ public class PlayerManager : MonoBehaviour
             playerCamera.fieldOfView = Mathf.Clamp(newFieldOfView, firstPersonFOV, thirdPersonFOV); // 限制视野范围
         }
     }
-
-
-
-
 }
