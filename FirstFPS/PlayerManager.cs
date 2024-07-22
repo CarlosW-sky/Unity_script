@@ -1,4 +1,5 @@
 ﻿using OpenCover.Framework.Model;
+using System;
 using UnityEngine;
 
 //cameraOffset相偏移, walk步行, 启动时调用的方法Method called at startup, processing处理
@@ -43,7 +44,7 @@ public class PlayerManager : MonoBehaviour
         cameraOffset = playerCamera.transform.position - transform.position;
 
         Debug.Log("Player1 Success");
-        Debug.Log("玩家1 成功加载"); 
+        Debug.Log("玩家1 成功加载");        
     }   
 
     void Update()
