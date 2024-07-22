@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Media; // Media; 使用 不安全代码
+
 
 
 [RequireComponent(typeof(UnityEngine.CharacterController))]
 
-public class Player1 : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {   
     // 玩家相机 和 步行；
     public Camera playerCamera;
